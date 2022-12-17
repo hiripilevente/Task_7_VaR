@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -41,7 +42,19 @@ namespace task_7
                                       orderby x
                                       select x)
                                         .ToList();
-            MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
+            // MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
+            
+            SaveFileDialog sfv = new SaveFileDialog();
+            sfv.ShowDialog();
+            using (StreamWriter sw = new StreamWriter(sfv.FileName))
+            {
+                sw.WriteLine("Időszak " + "Nyereség");
+                for (int i = 0; i < Nyereségek.Count; i++)
+                {
+                    sw.WriteLine(i.ToString() + " " + Nyereségek[i].ToString());
+                }
+
+            }
 
         }
 
