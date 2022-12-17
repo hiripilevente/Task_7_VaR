@@ -18,6 +18,7 @@ namespace task_7
         List<Tick> ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
         PortfolioEntities context = new PortfolioEntities();
+        List<decimal> Nyereségek = new List<decimal>();
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +26,6 @@ namespace task_7
             dataGridView1.DataSource = ticks;
             CreatePortfolio();
 
-            List<decimal> Nyereségek = new List<decimal>();
             int intervalum = 30;
             DateTime kezdőDátum = (from x in ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -43,7 +43,13 @@ namespace task_7
                                       select x)
                                         .ToList();
             // MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
-            
+
+            //Mentes();
+
+        }
+
+        private void Mentes()
+        {
             SaveFileDialog sfv = new SaveFileDialog();
             sfv.ShowDialog();
             using (StreamWriter sw = new StreamWriter(sfv.FileName))
@@ -55,7 +61,6 @@ namespace task_7
                 }
 
             }
-
         }
 
         private void CreatePortfolio()
@@ -79,6 +84,11 @@ namespace task_7
                 value += (decimal)last.Price * item.Volume;
             }
             return value;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Mentes();
         }
     }
 }
